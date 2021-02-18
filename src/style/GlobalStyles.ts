@@ -32,9 +32,9 @@ export const GlobalStyle = createGlobalStyle`
   `;
 
 export const theme = {
-  main: '#EEF0F4',
-  shadow: '#DBDDE0',
-  light: '#FFF',
+  main: '#eef0f4',
+  shadow: '#dbdde0',
+  light: '#fff',
   success: '#2ed467',
   warning: '#f8993a',
   danger: '#e82242',

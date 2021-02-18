@@ -69,6 +69,10 @@ const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 1.4rem;
 `;
 
+type Props = {
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 type FormData = {
   server: string;
   privateKey: string;
@@ -78,7 +82,7 @@ type FormData = {
   password: string;
 };
 
-const AddTaskForm: React.FC = () => {
+const AddTaskForm: React.FC<Props> = ({ setShowModal }) => {
   const { register, handleSubmit, errors, setValue } = useForm<FormData>();
   const dispatch = useDispatch();
 
@@ -86,7 +90,6 @@ const AddTaskForm: React.FC = () => {
   const handleClick = () => inputRef.current?.click();
 
   const handleOnSubmit = (data: FormData) => {
-    console.log(data);
     const textAreaValues = data.host.trim().split('\n');
     for (let i = 0; i < textAreaValues.length; i++) {
       const host = textAreaValues[i].split(':');
@@ -111,6 +114,7 @@ const AddTaskForm: React.FC = () => {
         );
       }
     }
+    setShowModal(false);
   };
 
   return (
@@ -165,7 +169,7 @@ const AddTaskForm: React.FC = () => {
             />
           </div>
           <div>
-            <Label>User Name / basic auth</Label>
+            <Label>User Name</Label>
             <InputField
               name="user"
               ref={register({
@@ -176,7 +180,7 @@ const AddTaskForm: React.FC = () => {
             />
           </div>
           <div>
-            <Label>Password / basic auth</Label>
+            <Label>Password</Label>
             <InputField
               type="password"
               name="password"

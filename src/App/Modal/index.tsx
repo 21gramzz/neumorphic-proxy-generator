@@ -4,12 +4,6 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactDOM from 'react-dom';
 
-type Props = {
-  children: JSX.Element;
-  showModal: boolean;
-  setShowModal: Function;
-};
-
 const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -47,13 +41,15 @@ const CloseModalButtonWrapper = styled.div`
   justify-content: flex-end;
 `;
 
+type Props = {
+  children: JSX.Element;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 const modalRoot = document.getElementById('modal-root');
 
-const Modal: React.FC<Props> = ({
-  children,
-  showModal,
-  setShowModal,
-}: Props) => {
+const Modal: React.FC<Props> = ({ children, showModal, setShowModal }) => {
   return modalRoot
     ? ReactDOM.createPortal(
         <>

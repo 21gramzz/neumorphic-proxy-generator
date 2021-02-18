@@ -40,7 +40,7 @@ const TaskAction: React.FC = () => {
   return (
     <>
       <Modal showModal={showModal} setShowModal={setShowModal}>
-        <AddTaskForm />
+        <AddTaskForm setShowModal={setShowModal} />
       </Modal>
 
       <Container>

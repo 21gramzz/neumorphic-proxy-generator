@@ -71,7 +71,7 @@ const TaskTable: React.FC<Props> = ({ task }) => {
   return (
     <>
       <Modal showModal={showModal} setShowModal={setShowModal}>
-        <EditTaskForm task={task} />
+        <EditTaskForm task={task} setShowModal={setShowModal} />
       </Modal>
       <TableRow>
         <TableData>{task.server}</TableData>

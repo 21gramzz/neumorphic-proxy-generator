@@ -71,6 +71,7 @@ const StyledIcon = styled(FontAwesomeIcon)`
 
 type Props = {
   task: SSHClientOptions;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type FormData = {
@@ -82,7 +83,7 @@ type FormData = {
   password: string;
 };
 
-const EditTaskForm: React.FC<Props> = ({ task }) => {
+const EditTaskForm: React.FC<Props> = ({ task, setShowModal }) => {
   const { register, handleSubmit, errors, setValue } = useForm<FormData>();
   const dispatch = useDispatch();
 
@@ -110,6 +111,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
           proxyPassword: data.password,
         }),
       );
+      setShowModal(false);
     }
   };
 
@@ -167,7 +169,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
             />
           </div>
           <div>
-            <Label>User Name / basic auth</Label>
+            <Label>User Name</Label>
             <InputField
               name="user"
               defaultValue={task.proxyUser}
@@ -179,7 +181,7 @@ const EditTaskForm: React.FC<Props> = ({ task }) => {
             />
           </div>
           <div>
-            <Label>Password / basic auth</Label>
+            <Label>Password</Label>
             <InputField
               type="password"
               name="password"
