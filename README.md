@@ -2,6 +2,8 @@
 
 Configure proxy server on CentOS (WebArena / Indigo) with ease.
 
+![screenshot](https://github.com/devkim10/neumorphic-proxy-generator/blob/images/screenshot1.png)
+
 ## Development Setup
 ```
 $ git clone https://github.com/devkim10/neumorphic-proxy-generator
