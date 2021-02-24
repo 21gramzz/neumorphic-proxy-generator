@@ -6,6 +6,7 @@ import store, { persistor } from './stores';
 import { PersistGate } from 'redux-persist/integration/react';
 import Tasks from './App/Tasks';
 import './icon/fontawsome';
+import './electron/api.interface';
 
 const App: React.FC = () => {
   return (

@@ -9,9 +9,10 @@
     "esModuleInterop": true,
     "sourceRoot": "./src",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
   "files":[
-    "src/main.ts"
+    "src/main.ts",
+    "src/preload.ts"
   ]
 }

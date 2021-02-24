@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { RootState } from '../../reducers';
 import { useSelector } from 'react-redux';
-import { ipcRenderer } from 'electron';
 import styled from 'styled-components';
 import Modal from '../Modal';
 import Button from '../../shared/Button';
@@ -49,13 +48,13 @@ const TaskAction: React.FC = () => {
           <ExtendedButton onClick={() => setShowModal(!showModal)}>
             <StyledIcon icon="plus" fixedWidth /> Add Task
           </ExtendedButton>
-          <ExtendedButton onClick={() => ipcRenderer.send('startAll', tasks)}>
+          <ExtendedButton onClick={() => window.api.send('startAll', tasks)}>
             <StyledIcon icon="play" fixedWidth /> Start All
           </ExtendedButton>
-          <ExtendedButton onClick={() => ipcRenderer.send('stopAll')}>
+          <ExtendedButton onClick={() => window.api.send('stopAll')}>
             <StyledIcon icon="stop" fixedWidth /> Stop All
           </ExtendedButton>
-          <ExtendedButton onClick={() => ipcRenderer.send('exportTask', tasks)}>
+          <ExtendedButton onClick={() => window.api.send('exportTask', tasks)}>
             <StyledIcon icon="pencil-alt" fixedWidth /> Export
           </ExtendedButton>
         </ButtonWrapper>

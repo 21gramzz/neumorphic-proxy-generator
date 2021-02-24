@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { SSHClientOptions } from '../../ts/proxy-generator';
-import { ipcRenderer, IpcRendererEvent } from 'electron';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { deleteTask } from '../../slice/tasks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from '../Modal';
 import EditTaskForm from './EditTaskForm';
-
-type Props = {
-  task: SSHClientOptions;
-};
+import { IpcRendererEvent } from 'electron';
 
 const TableRow = styled.tr`
   border-top: 0.0625rem solid #d1d9e6;
@@ -53,20 +49,25 @@ const IconOnlyButton = styled.button`
   font-size: 1.4rem;
 `;
 
-const TaskTable: React.FC<Props> = ({ task }) => {
+type Props = {
+  task: SSHClientOptions;
+};
+
+const TaskTableRow: React.FC<Props> = ({ task }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   // ステータス更新
   const [status, setStatus] = useState<string>('Inactive');
-  // 再描写の副作用でイベントが重複登録されるのを防ぐ
+
   useEffect(() => {
-    ipcRenderer.once(
-      `updateStatus${task.id}`,
-      (event: IpcRendererEvent, message: string) => {
-        setStatus(message);
-      },
-    );
-  }, [status]);
+    const updateStatus = (event: IpcRendererEvent, newStatus: string) => {
+      setStatus(newStatus);
+    };
+    window.api.on(`updateStatus${task.id}`, updateStatus);
+    return () => {
+      window.api.removeListener(`updateStatus${task.id}`, updateStatus);
+    };
+  }, []);
 
   return (
     <>
@@ -83,13 +84,13 @@ const TaskTable: React.FC<Props> = ({ task }) => {
         <TableData>
           <IconOnlyButton
             onClick={() => {
-              ipcRenderer.send('start', task);
+              window.api.send('start', task);
             }}>
             <FontAwesomeIcon icon="play" fixedWidth />
           </IconOnlyButton>
           <IconOnlyButton
             onClick={() => {
-              ipcRenderer.send('stop', task.id);
+              window.api.send('stop', task.id);
             }}>
             <FontAwesomeIcon icon="stop" fixedWidth />
           </IconOnlyButton>
@@ -104,4 +105,4 @@ const TaskTable: React.FC<Props> = ({ task }) => {
     </>
   );
 };
-export default TaskTable;
+export default TaskTableRow;

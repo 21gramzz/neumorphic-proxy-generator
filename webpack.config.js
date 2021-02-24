@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   target: 'electron-renderer',
-  entry: './src/index.tsx',
+  entry: ['./src/index.tsx'],
   cache: true,
   mode: 'development', // "production" | "development" | "none"
   devtool: 'source-map',

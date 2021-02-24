@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ipcRenderer } from 'electron';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled.div`
@@ -39,17 +38,17 @@ const MacWindowButton: React.FC = () => {
     <>
       <Container>
         <Button
-          onClick={() => ipcRenderer.send('closeWindow')}
+          onClick={() => window.api.send('closeWindow')}
           backgrouncColor="#fc615d">
           <StyledIcon icon="times" fixedWidth />
         </Button>
         <Button
-          onClick={() => ipcRenderer.send('minimizeWindow')}
+          onClick={() => window.api.send('minimizeWindow')}
           backgrouncColor="#fdbc40">
           <StyledIcon icon="minus" fixedWidth />
         </Button>
         <Button
-          onClick={() => ipcRenderer.send('maximizeWindow')}
+          onClick={() => window.api.send('maximizeWindow')}
           backgrouncColor="#34c749">
           <StyledIcon icon="plus" fixedWidth />
         </Button>

@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { addTask } from '../../slice/tasks';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import random from 'randomstring';
 import InputField from '../../shared/InputField';
 import TextArea from '../../shared/textArea';
 import Button from '../../shared/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const randomString = window.api.randomString;
 
 const Container = styled.div`
   width: 100%;
@@ -88,7 +89,6 @@ const AddTaskForm: React.FC<Props> = ({ setShowModal }) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const handleClick = () => inputRef.current?.click();
-
   const handleOnSubmit = (data: FormData) => {
     const textAreaValues = data.host.trim().split('\n');
     for (let i = 0; i < textAreaValues.length; i++) {
@@ -100,7 +100,7 @@ const AddTaskForm: React.FC<Props> = ({ setShowModal }) => {
       if (ip && port && user) {
         dispatch(
           addTask({
-            id: random.generate(32),
+            id: randomString(),
             server: data.server,
             host: ip,
             port: port,
