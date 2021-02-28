@@ -14,6 +14,9 @@ contextBridge.exposeInMainWorld('api', {
   removeListener: (channel: string, listener: (...args: any[]) => void) => {
     ipcRenderer.removeListener(channel, listener);
   },
+  removeAllListeners: (channel: string) => {
+    ipcRenderer.removeAllListeners(channel);
+  },
   randomString: (): string => {
     return randomstring.generate(32);
   },

@@ -65,7 +65,7 @@ const TaskTableRow: React.FC<Props> = ({ task }) => {
     };
     window.api.on(`updateStatus${task.id}`, updateStatus);
     return () => {
-      window.api.removeListener(`updateStatus${task.id}`, updateStatus);
+      window.api.removeAllListeners(`updateStatus${task.id}`);
     };
   }, []);
 
