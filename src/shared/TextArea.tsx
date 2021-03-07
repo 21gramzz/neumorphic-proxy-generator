@@ -5,7 +5,7 @@ const TextArea = styled.textarea`
   background-color: ${props => props.theme.main};
   color: ${props => props.theme.textColor};
   border-radius: 0.95rem;
-  padding: 0.75rem 1.5rem;
+  padding: 1.5rem;
   outline: 0;
   border: 0;
   width: 100%;

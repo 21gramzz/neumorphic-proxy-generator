@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TaskTable from './TaskTable';
-import TaskAction from './TaskActions';
+import TaskAction from './TaskTop';
 import Header from '../Header';
 
 const Container = styled.div`

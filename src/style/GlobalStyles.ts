@@ -39,6 +39,7 @@ export const theme = {
   warning: '#f8993a',
   danger: '#e82242',
   textColor: '#31344b',
+  subColor: '#d1d9e6',
 };
 
 export type Theme = typeof theme;

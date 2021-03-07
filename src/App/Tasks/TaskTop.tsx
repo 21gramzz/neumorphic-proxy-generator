@@ -9,16 +9,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../electron/api.interface';
 
 const Container = styled.div`
-  margin: 0 70px;
+  padding: 2rem 3rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   color: ${props => props.theme.textColor};
-  font-size: 2rem;
-  font-weight: 300;
-  margin: 0;
+  margin: 0 1rem;
+  span {
+    font-size: 2rem;
+    font-weight: 300;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -34,7 +37,7 @@ const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 1.4rem;
 `;
 
-const TaskAction: React.FC = () => {
+const TaskTop: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { tasks } = useSelector((state: RootState) => state.tasks);
   return (
@@ -44,7 +47,9 @@ const TaskAction: React.FC = () => {
       </Modal>
 
       <Container>
-        <Title>Tasks</Title>
+        <Title>
+          <span>Tasks ({tasks.length} Total)</span>
+        </Title>
         <ButtonWrapper>
           <ExtendedButton onClick={() => setShowModal(!showModal)}>
             <StyledIcon icon="plus" fixedWidth /> Add Task
@@ -64,4 +69,4 @@ const TaskAction: React.FC = () => {
   );
 };
 
-export default TaskAction;
+export default TaskTop;

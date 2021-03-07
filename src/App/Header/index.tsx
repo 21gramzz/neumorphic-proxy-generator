@@ -5,7 +5,6 @@ import MacWindowButton from './MacWindowButton';
 const StyledHeader = styled.header`
   -webkit-app-region: drag;
   width: 100%;
-  height: 70px;
 `;
 
 const Header: React.FC = () => {

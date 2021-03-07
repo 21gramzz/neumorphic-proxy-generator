@@ -6,7 +6,7 @@ import { RootState } from '../../reducers';
 
 const Container = styled.div`
   box-sizing: border-box;
-  padding: 35px 70px;
+  padding: 1rem 3rem 3rem;
   height: 100%;
   width: 100%;
   display: flex;
@@ -14,20 +14,31 @@ const Container = styled.div`
 `;
 
 const Table = styled.table`
+  background-color: ${props => props.theme.main};
   color: ${props => props.theme.textColor};
   flex: 1;
-  height: 100%;
-  width: 100%;
   text-align: center;
   vertical-align: top;
-  border-radius: 0.55rem;
+  border-radius: 1rem;
+  border-collapse: collapse;
+  height: 100%;
+  width: 100%;
+  box-shadow: inset 3px 3px 6px ${props => props.theme.shadow},
+    inset -3px -3px 6px ${props => props.theme.light};
 `;
 
 const TableHeader = styled.th`
-  padding: 0.7rem;
+  padding: 1rem;
+`;
+
+const Thead = styled.thead`
+  border-bottom: 0.08rem solid ${props => props.theme.subColor};
 `;
 
 const TableBody = styled.tbody`
+  tr:nth-child(odd) {
+    background: rgba(219, 221, 224, 0.2);
+  }
   height: 100%;
   overflow: scroll;
   display: block;
@@ -44,7 +55,10 @@ const NoTaskMessage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70%;
+  height: 100%;
+  border-radius: 1rem;
+  box-shadow: inset 3px 3px 6px ${props => props.theme.shadow},
+    inset -3px -3px 6px ${props => props.theme.light};
   span {
     color: ${props => props.theme.textColor};
     font-size: 1.7rem;
@@ -58,7 +72,7 @@ const TaskTable: React.FC = () => {
     <Container>
       {tasks.length > 0 ? (
         <Table>
-          <thead>
+          <Thead>
             <TableRow>
               <TableHeader>Server</TableHeader>
               <TableHeader>Host</TableHeader>
@@ -66,7 +80,7 @@ const TaskTable: React.FC = () => {
               <TableHeader>Status</TableHeader>
               <TableHeader>Action</TableHeader>
             </TableRow>
-          </thead>
+          </Thead>
           <TableBody>
             {tasks.map(task => (
               <TaskTableRow task={task} key={task.id} />

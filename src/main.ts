@@ -13,6 +13,7 @@ const createMainWindow = () => {
     height: 600,
     minWidth: 1000,
     minHeight: 600,
+    backgroundColor: '#eef0f4',
     useContentSize: true,
     show: false,
     frame: false,

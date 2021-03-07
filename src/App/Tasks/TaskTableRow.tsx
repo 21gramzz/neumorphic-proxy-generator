@@ -9,15 +9,15 @@ import EditTaskForm from './EditTaskForm';
 import { IpcRendererEvent } from 'electron';
 
 const TableRow = styled.tr`
-  border-top: 0.0625rem solid #d1d9e6;
   width: 100%;
   box-sizing: border-box;
   display: inline-table;
   table-layout: fixed;
+  border-bottom: 0.08rem solid ${props => props.theme.subColor};
   &:hover {
-    border-radius: 0.55rem;
-    box-shadow: inset 4px 3px 9px ${props => props.theme.shadow},
-      inset -4px -3px 9px ${props => props.theme.light};
+    border-radius: 0;
+    box-shadow: inset 3px 3px 6px ${props => props.theme.shadow},
+      inset -3px -3px 6px ${props => props.theme.light};
   }
 `;
 
@@ -40,12 +40,9 @@ const TaskStatus = styled.span<{ status: string }>`
       : props.theme.textColor};
 `;
 
-const IconOnlyButton = styled.button`
+const IconOnlyButton = styled.span`
   color: ${props => props.theme.textColor};
-  margin: 0 0.5rem;
-  padding: 0;
-  border: none;
-  outline: none;
+  margin: 0 0.4rem;
   font-size: 1.4rem;
 `;
 
