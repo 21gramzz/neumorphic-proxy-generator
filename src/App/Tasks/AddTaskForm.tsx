@@ -4,70 +4,86 @@ import { addTask } from '../../slice/tasks';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import InputField from '../../shared/InputField';
-import TextArea from '../../shared/textArea';
+import TextArea from '../../shared/TextArea';
+import SelectBox from '../../shared/SelectBox';
 import Button from '../../shared/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const randomString = window.api.randomString;
 
 const Container = styled.div`
-  width: 100%;
+  width: 700px;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 3rem;
-  row-gap: 2rem;
-  padding: 0 5rem;
+  padding: 1rem;
 `;
 
-const FormGroup = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 3rem;
-  grid-column-start: 1;
-  grid-column-end: 3;
-`;
-
-const Header = styled.h1`
+const Header = styled.div`
   color: ${props => props.theme.textColor};
-  font-size: 2rem;
-  font-weight: 300;
-  margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 3;
+  margin-bottom: 2rem;
+  span {
+    font-size: 2rem;
+    font-weight: 300;
+  }
 `;
 
 const Label = styled.label`
+  display: block;
   font-size: 1.4rem;
   color: ${props => props.theme.textColor};
-  display: block;
-  margin-bottom: 0.7rem;
+  margin-bottom: 1.5rem;
 `;
 
-const TextAreaWrapper = styled.div`
+const FormContainer = styled.div`
+  padding: 1.5rem;
+`;
+
+const FormGrid = styled.div`
+  display: grid;
+  row-gap: 1.5rem;
+  column-gap: 1.5rem;
+`;
+
+const FormGroupRow = styled.div``;
+
+const FormGroup2Rows = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 2;
+`;
+
+const FormGroup3Rows = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 2rem;
+  grid-column-start: 1;
+  grid-column-end: 2;
+`;
+
+const CloseModalButton = styled.span`
+  color: ${props => props.theme.textColor};
+  font-size: 1.5rem;
+`;
+
+const CloseModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const ExtendedTextArea = styled(TextArea)`
   height: 120px;
 `;
 
-const Select = styled.select`
-  -webkit-appearance: none;
-  background-color: ${props => props.theme.main};
-  color: ${props => props.theme.textColor};
-  border-radius: 0.95rem;
-  padding: 0.75rem 1.5rem;
-  outline: 0;
-  border: 0;
-  width: 100%;
-  box-shadow: inset 4px 3px 9px ${props => props.theme.shadow},
-    inset -4px -3px 9px ${props => props.theme.light};
-`;
-
 const StyledIcon = styled(FontAwesomeIcon)`
   font-size: 1.4rem;
+  margin-right: 0.7rem;
 `;
 
 type Props = {
@@ -118,99 +134,115 @@ const AddTaskForm: React.FC<Props> = ({ setShowModal }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnSubmit)}>
-      <Container>
-        <Header>Add Task</Header>
-        <div>
-          <Label>Server</Label>
-          <Select
-            name="server"
-            ref={register({
-              required: true,
-            })}>
-            <option value="webarena">WebARENA</option>
-            <option value="indigo">Indigo</option>
-          </Select>
-        </div>
-        <div>
-          <Label>Private Key</Label>
-          <InputField
-            onClick={handleClick}
-            type="text"
-            name="privateKey"
-            ref={register()}
-            className={errors.privateKey ? 'is-invalid' : ''}
-            readOnly
-          />
-          <InputField
-            type="file"
-            accept=".pem,.txt,.key"
-            style={{ display: 'none' }}
-            ref={inputRef}
-            className={errors.privateKey ? 'is-invalid' : ''}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const result = e.target.files ? e.target.files[0].path : '';
-              setValue('privateKey', result);
-            }}
-          />
-        </div>
-
-        <FormGroup>
-          <div>
-            <Label>Proxy Port</Label>
-            <InputField
-              type="number"
-              name="port"
-              ref={register({
-                required: true,
-                pattern: /^[\d]{1,6}$/,
-              })}
-              className={errors.port ? 'is-invalid' : ''}
-            />
-          </div>
-          <div>
-            <Label>User Name</Label>
-            <InputField
-              name="user"
-              ref={register({
-                required: true,
-                pattern: /^[A-Za-z][-A-Za-z0-9_]*$/,
-              })}
-              className={errors.user ? 'is-invalid' : ''}
-            />
-          </div>
-          <div>
-            <Label>Password</Label>
-            <InputField
-              type="password"
-              name="password"
-              ref={register({
-                required: true,
-                pattern: /^[A-Za-z][-A-Za-z0-9_]*$/,
-              })}
-              className={errors.password ? 'is-invalid' : ''}
-            />
-          </div>
-        </FormGroup>
-        <TextAreaWrapper>
-          <Label>Host</Label>
-          <ExtendedTextArea
-            placeholder="ip:port:user:password"
-            name="host"
-            ref={register({
-              required: true,
-              pattern: /^(((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]{1,6}:[a-zA-Z0-9]{1,}(:[a-zA-Z0-9]{1,})?(\n)?)+$/,
-            })}
-            className={errors.host ? 'is-invalid' : ''}
-          />
-        </TextAreaWrapper>
-        <div>
-          <Button>
-            <StyledIcon icon="plus" fixedWidth /> Add Task
-          </Button>
-        </div>
-      </Container>
-    </form>
+    <Container>
+      <CloseModalButtonWrapper>
+        <CloseModalButton
+          onClick={() => {
+            setShowModal(false);
+          }}>
+          <FontAwesomeIcon icon="times" fixedWidth />
+        </CloseModalButton>
+      </CloseModalButtonWrapper>
+      <FormContainer>
+        <Header>
+          <span>Add New Task</span>
+        </Header>
+        <form onSubmit={handleSubmit(handleOnSubmit)}>
+          <FormGrid>
+            <FormGroup2Rows>
+              <FormGroupRow>
+                <Label>Sever</Label>
+                <SelectBox
+                  name="server"
+                  ref={register({
+                    required: true,
+                  })}>
+                  <option value="webarena">WebARENA</option>
+                  <option value="indigo">Indigo</option>
+                </SelectBox>
+              </FormGroupRow>
+              <FormGroupRow>
+                <Label>Private Key</Label>
+                <InputField
+                  onClick={handleClick}
+                  type="text"
+                  name="privateKey"
+                  ref={register()}
+                  className={errors.privateKey ? 'is-invalid' : ''}
+                  readOnly
+                />
+                <InputField
+                  type="file"
+                  accept=".pem,.txt,.key"
+                  style={{ display: 'none' }}
+                  ref={inputRef}
+                  className={errors.privateKey ? 'is-invalid' : ''}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const result = e.target.files ? e.target.files[0].path : '';
+                    setValue('privateKey', result);
+                  }}
+                />
+              </FormGroupRow>
+            </FormGroup2Rows>
+            <FormGroup3Rows>
+              <FormGroupRow>
+                <Label>Proxy Port</Label>
+                <InputField
+                  type="number"
+                  name="port"
+                  ref={register({
+                    required: true,
+                    pattern: /^[\d]{1,6}$/,
+                  })}
+                  className={errors.port ? 'is-invalid' : ''}
+                />
+              </FormGroupRow>
+              <FormGroupRow>
+                <Label>User Name</Label>
+                <InputField
+                  name="user"
+                  ref={register({
+                    required: true,
+                    pattern: /^[A-Za-z][-A-Za-z0-9_]*$/,
+                  })}
+                  className={errors.user ? 'is-invalid' : ''}
+                />
+              </FormGroupRow>
+              <FormGroupRow>
+                <Label>Password</Label>
+                <InputField
+                  type="password"
+                  name="password"
+                  ref={register({
+                    required: true,
+                    pattern: /^[A-Za-z][-A-Za-z0-9_]*$/,
+                  })}
+                  className={errors.password ? 'is-invalid' : ''}
+                />
+              </FormGroupRow>
+            </FormGroup3Rows>
+            <FormGroupRow>
+              <Label>Host</Label>
+              <ExtendedTextArea
+                placeholder="ip:port:user:password"
+                name="host"
+                ref={register({
+                  required: true,
+                  pattern: /^(((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):[0-9]{1,6}:[a-zA-Z0-9]{1,}(:[a-zA-Z0-9]{1,})?(\n)?)+$/,
+                })}
+                className={errors.host ? 'is-invalid' : ''}
+              />
+            </FormGroupRow>
+            <ButtonWrapper>
+              <Button>
+                <StyledIcon icon="plus" fixedWidth />
+                Add New Task
+              </Button>
+            </ButtonWrapper>
+          </FormGrid>
+        </form>
+      </FormContainer>
+    </Container>
   );
 };
 

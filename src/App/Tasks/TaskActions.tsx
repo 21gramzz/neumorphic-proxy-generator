@@ -6,6 +6,7 @@ import Modal from '../Modal';
 import Button from '../../shared/Button';
 import AddTaskForm from './AddTaskForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../electron/api.interface';
 
 const Container = styled.div`
   margin: 0 70px;
@@ -38,7 +39,7 @@ const TaskAction: React.FC = () => {
   const { tasks } = useSelector((state: RootState) => state.tasks);
   return (
     <>
-      <Modal showModal={showModal} setShowModal={setShowModal}>
+      <Modal showModal={showModal}>
         <AddTaskForm setShowModal={setShowModal} />
       </Modal>
 
