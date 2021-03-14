@@ -149,6 +149,7 @@ const EditTaskForm: React.FC<Props> = ({ task, setShowModal }) => {
                 <Label>Sever</Label>
                 <SelectBox
                   name="server"
+                  defaultValue={task.server}
                   ref={register({
                     required: true,
                   })}>
