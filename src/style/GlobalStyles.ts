@@ -1,33 +1,31 @@
-import baseStyled, {
-  createGlobalStyle,
-  ThemedStyledInterface,
-} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     *::-webkit-scrollbar {
       display: none;
     }
     *, *:before, *:after {
-      box-sizing: border-box
+      box-sizing: inherit;
     }
     html{
       font-size: 10px;
+      box-sizing: border-box;
     }
      body {
-      font-family: 'Nunito Sans', sans-serif;
+      font-family: 'Nunito Sans', 'sans-serif';
       font-size: 1.5em;
       margin: 0;
       padding: 0;
-      background: #eef0f4;
+      background: ${props => props.theme.main};
       height: 100vh;
       width: 100vw;
     }
     button, input, select, textarea {
-      font-family : inherit;
-      font-size : 1.5rem;
+      font-family: inherit;
+      font-size: 1.5rem;
     }
     button,table, td, th, label, span, h1 {
-      -webkit-user-select:none;
+      -webkit-user-select: none;
     }
   `;
 
@@ -43,4 +41,7 @@ export const theme = {
 };
 
 export type Theme = typeof theme;
-export const styled = baseStyled as ThemedStyledInterface<Theme>;
+declare module 'styled-components' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface DefaultTheme extends Theme {}
+}

@@ -20,6 +20,7 @@ const Table = styled.table`
   text-align: center;
   vertical-align: top;
   border-radius: 1rem;
+  overflow: hidden;
   border-collapse: collapse;
   height: 100%;
   width: 100%;
